@@ -1,0 +1,14 @@
+.gradle
+.idea
+.slcache
+target
+.classpath
+.project
+grailsw
+grailsw.bat
+*.iml
+*generated*
+*/build/*
+build/*
+classes/*
+wrapper
