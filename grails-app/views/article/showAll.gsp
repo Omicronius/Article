@@ -10,10 +10,10 @@
         </div>
         <div class="col-md-8">
             <g:each in="${articles.sort{it.dateCreated}}">
-                <p><h3>${it.title}</h3></p>
+                <p><h3>${it.title}<sec:ifAllGranted roles="ROLE_ADMIN"><g:link action="delete" class="btn btn-info" style="float: right" id="${it.id}">Delete</g:link></sec:ifAllGranted></h3></p>
                 <p>Views: ${it.views}</p>
                 <p>CreateDate: <g:formatDate date="${it.dateCreated}" type="datetime" style="MEDIUM"/></p>
-                <p>Contributors: <g:each var="contributor" in="${it.contributors}">${contributor.firstName} </g:each></p>
+                <p>Contributors: <g:each var="user" in="${it.users}">${user.firstName} </g:each></p>
                 <p>Tags: <g:each var="tag" in="${it.tags}">${tag.name} </g:each></p>
                 <p>Content: ${it.content}</p>
                 <hr>
@@ -31,7 +31,7 @@
             <h3 class="well"> Top articles:</h3>
             <g:each in="${articles.sort{-it.views}}">
                 <p><h4>${it.title} - ${it.views} views</h4></p>
-                <p>Contributors: <g:each var="contributor" in="${it.contributors}">${contributor.firstName} </g:each></p>
+                <p>Contributors: <g:each var="user" in="${it.users}">${user.firstName} </g:each></p>
                 <hr>
             </g:each>
         </div>

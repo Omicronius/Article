@@ -60,7 +60,7 @@ class BootStrap {
                 accountExpired: false,
                 accountLocked: false,
                 passwordExpired: false,
-                contributions: [art1, art2, art3]
+                articles: [art1, art2, art3]
         ).save()
 
         def user2 = new User(
@@ -73,7 +73,7 @@ class BootStrap {
                 accountExpired: false,
                 accountLocked: false,
                 passwordExpired: false,
-                contributions: [art2]
+                articles: [art2]
         ).save()
 
         UserRole.create(admin, adminRole, true)

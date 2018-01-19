@@ -7,7 +7,7 @@
     <body>
         <g:form name="newArticle" url="[controller:'article',action:'newArticle']">
         <div class="nav" role="navigation">
-                <g:actionSubmit value="back" class="btn"/>
+                <g:actionSubmit value="back" action="showAll" class="btn"/>
                 <g:actionSubmit value="create" class="btn btn-success"/>
         </div>
             <div class="col-xs-6">

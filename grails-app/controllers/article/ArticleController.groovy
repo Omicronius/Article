@@ -17,7 +17,7 @@ class ArticleController {
         bindData(newArticle, params, [exclude: ['tags']])
         def tags = params.tags
         articleService.create(newArticle, tags)
-        redirect (action: 'showAll')
+        redirect(action: 'showAll')
     }
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
@@ -25,5 +25,11 @@ class ArticleController {
         def user = springSecurityService.currentUser
         def articles = articleService.getAllArticles()
         render(view: "showAll", model: [user: user, articles: articles])
+    }
+
+    @Secured(["ROLE_ADMIN"])
+    def delete(Long id) {
+        articleService.delete(id)
+        redirect(action: 'showAll')
     }
 }

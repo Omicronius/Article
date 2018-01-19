@@ -26,8 +26,8 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+            dbCreate = "none"
+            url = "jdbc:mysql://localhost/article_test"
         }
     }
     production {

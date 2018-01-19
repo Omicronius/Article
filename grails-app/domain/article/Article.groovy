@@ -6,7 +6,7 @@ class Article {
     Long views = 0
     Date dateCreated
     Date lastUpdated
-    static hasMany = [contributors: User, tags: Tag]
+    static hasMany = [users: User, tags: Tag]
     static belongsTo = User
 
     static constraints = {

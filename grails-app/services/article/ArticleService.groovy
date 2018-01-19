@@ -1,10 +1,11 @@
 package article
 
-import grails.transaction.Transactional
+import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 class ArticleService {
     def springSecurityService
+    def userService
     def tagService
 
     def getAllArticles() {
@@ -15,6 +16,13 @@ class ArticleService {
         def tagList = tagService.processTags(tags)
         newArticle.tags = tagList
         def user = User.get(springSecurityService.currentUser.id)
-        user.contributions << newArticle
+        user.articles << newArticle
+    }
+
+    def delete(Long id) {
+        def article = Article.get(id)
+        def users = userService.getUsersByArticle(article)
+        users.each { it.articles.remove(article) }
+        article.delete()
     }
 }

@@ -13,7 +13,7 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
-	static hasMany = [contributions: Article]
+	static hasMany = [articles: Article]
 
 	static constraints = {
 		username blank: false, unique: true

@@ -2,7 +2,8 @@ package article
 
 class Tag {
     String name
-//    static belongsTo = [articles: Article]
+    static hasMany = [articles: Article]
+    static belongsTo = Article
     static constraints = {
         name unique: true
     }

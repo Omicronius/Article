@@ -6,8 +6,9 @@ import grails.transaction.Transactional
 class TagService {
     def processTags(def tags) {
         def tagList = []
+
         tags.split(' ').each {
-            tagList << new Tag(name: it)
+            tagList << Tag.findByName(it) ?: new Tag(name: it)
         }
         tagList
     }
