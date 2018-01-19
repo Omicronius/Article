@@ -16,7 +16,7 @@ class ArticleController {
         def newArticle = new Article()
         bindData(newArticle, params, [exclude: ['tags']])
         def tags = params.tags
-        articleService.create(newArticle, tags)
+        articleService.createOrUpdate(newArticle, tags)
         redirect(action: 'showAll')
     }
 
@@ -30,6 +30,22 @@ class ArticleController {
     @Secured(["ROLE_ADMIN"])
     def delete(Long id) {
         articleService.delete(id)
+        redirect(action: 'showAll')
+    }
+
+    @Secured(["ROLE_USER", "ROLE_ADMIN"])
+    def edit(Long id) {
+        def article = articleService.getById(id)
+        def tags = article.tags*.name.join(' ')
+        render(view: "edit", model: [article: article, tags: tags])
+    }
+
+    @Secured(["ROLE_USER", "ROLE_ADMIN"])
+    def update(Long id) {
+        def article = articleService.getById(id)
+        bindData(article, params, [exclude: ['tags']])
+        def tags = params.tags
+        articleService.createOrUpdate(article, tags)
         redirect(action: 'showAll')
     }
 }

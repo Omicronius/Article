@@ -10,7 +10,10 @@
         </div>
         <div class="col-md-8">
             <g:each in="${articles.sort{it.dateCreated}}">
-                <p><h3>${it.title}<sec:ifAllGranted roles="ROLE_ADMIN"><g:link action="delete" class="btn btn-info" style="float: right" id="${it.id}">Delete</g:link></sec:ifAllGranted></h3></p>
+                <p><h3>${it.title}
+                <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_USER'><g:link action="edit" class="btn btn-success" id="${it.id}">Edit</g:link></sec:ifAnyGranted>
+                <sec:ifAllGranted roles="ROLE_ADMIN"><g:link action="delete" class="btn btn-info" style="float: right" id="${it.id}">Delete</g:link></sec:ifAllGranted></h3>
+                </p>
                 <p>Views: ${it.views}</p>
                 <p>CreateDate: <g:formatDate date="${it.dateCreated}" type="datetime" style="MEDIUM"/></p>
                 <p>Contributors: <g:each var="user" in="${it.users}">${user.firstName} </g:each></p>
@@ -20,12 +23,12 @@
             </g:each>
         </div>
         <div class="col-md-3" style="margin: 10px">
-            <g:if test="${user}">
+            <sec:ifLoggedIn>
                 Hello, ${user.firstName}!
                 <g:link controller="user" action="logout" style="float: right">
                     <button type="button" class="btn btn-default btn-sm">Logout</button>
                 </g:link>
-            </g:if>
+            </sec:ifLoggedIn>
         </div>
         <div class="col-md-4">
             <h3 class="well"> Top articles:</h3>
