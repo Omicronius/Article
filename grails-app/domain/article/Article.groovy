@@ -13,6 +13,8 @@ class Article {
     }
 
     static mapping = {
+        users joinTable: [name: "user_article", key: 'article_id' ]
+        tags joinTable: [name: "article_tag", key: 'article_id' ]
         content type: 'text'
         views defaultValue: '0'
     }

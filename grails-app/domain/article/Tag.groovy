@@ -7,4 +7,8 @@ class Tag {
     static constraints = {
         name unique: true
     }
+
+    static mapping = {
+        articles joinTable: [name: "article_tag", key: 'tag_id' ]
+    }
 }

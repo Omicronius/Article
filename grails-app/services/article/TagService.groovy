@@ -4,11 +4,11 @@ import grails.transaction.Transactional
 
 @Transactional
 class TagService {
-    def processTags(def tags) {
+    def processTags(String tags) {
         def tagList = []
-
         tags.split(' ').each {
-            tagList << Tag.findByName(it) ?: new Tag(name: it)
+            def tag = Tag.findByName(it) ?: new Tag(name: it)
+            tagList.add(tag)
         }
         tagList
     }
