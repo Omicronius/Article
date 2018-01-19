@@ -7,16 +7,22 @@ class ArticleController {
     def springSecurityService
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def newArticle = {
-        render(view: "newArticle")
+    def edit(Long id) {
+        def article
+        def tags
+        if (id != null) {
+            article = articleService.getById(id)
+            tags = article?.tags*.name.join(' ')
+        }
+        render(view: "edit", model: [article: article, tags: tags])
     }
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def create = {
-        def newArticle = new Article()
-        bindData(newArticle, params, [exclude: ['tags']])
+    def createOrUpdate() {
+        def article = params.id != null ? articleService.getById(params.id as Long) : new Article()
+        bindData(article, params, [exclude: ['tags']])
         def tags = params.tags
-        articleService.createOrUpdate(newArticle, tags)
+        articleService.createOrUpdate(article, tags)
         redirect(action: 'showAll')
     }
 
@@ -30,22 +36,6 @@ class ArticleController {
     @Secured(["ROLE_ADMIN"])
     def delete(Long id) {
         articleService.delete(id)
-        redirect(action: 'showAll')
-    }
-
-    @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def edit(Long id) {
-        def article = articleService.getById(id)
-        def tags = article.tags*.name.join(' ')
-        render(view: "edit", model: [article: article, tags: tags])
-    }
-
-    @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def update(Long id) {
-        def article = articleService.getById(id)
-        bindData(article, params, [exclude: ['tags']])
-        def tags = params.tags
-        articleService.createOrUpdate(article, tags)
         redirect(action: 'showAll')
     }
 }

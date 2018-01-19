@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="nav" role="navigation">
-            <ul><li><g:link class="create" action="newArticle">New article</g:link></li></ul>
+            <ul><li><g:link class="create" action="edit">New article</g:link></li></ul>
         </div>
         <div class="col-md-8">
             <g:each in="${articles.sort{it.dateCreated}}">
