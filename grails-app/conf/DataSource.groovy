@@ -26,7 +26,7 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "none"
+            dbCreate = "create-drop"
             url = "jdbc:mysql://localhost/article_test"
         }
     }

@@ -18,7 +18,7 @@ class BootStrap {
                 title: 'Scientific article',
                 content: 'Increased fluctuations in the path of the North Atlantic jet stream since the 1960s coincide with more extreme weather events in Europe such as heat waves, wildfires and flooding. The new research is the first reconstruction of historical changes in the North Atlantic jet stream prior to the 20th century. By using tree rings, the researchers developed a historical look at the position of the North Atlantic jet back to 1725',
                 views: 1556,
-                createDate: ++new Date(),
+                dateCreated: ++new Date(),
                 lastUpdated: ++new Date(),
                 tags: [tag1, tag2])
 
@@ -26,7 +26,7 @@ class BootStrap {
                 title: 'Historical article',
                 content: 'Scientists discovered a dinosaur fossil with feathers so well-preserved that they were able to see the feathers\' microscopic color-bearing structures. By comparing the shapes of those feather structures with the structures in modern bird feathers, they\'re able to infer that the new dino, Caihong juji (\'rainbow with the big crest\') had iridescent rainbow feathers like a hummingbird.',
                 views: 2546,
-                createDate: new Date(),
+                dateCreated: new Date(),
                 lastUpdated: new Date(),
                 tags: [tag2])
 
@@ -34,7 +34,7 @@ class BootStrap {
                 title: 'Astronomical article',
                 content: 'In 2014, astronomers found an enormous galaxy cluster contains the mass of a staggering three million billion suns -- so it\'s little wonder that it has earned the nickname of "El Gordo" ("the Fat One" in Spanish)! Known officially as ACT-CLJ0102-4915, it is the largest, hottest, and brightest X-ray galaxy cluster ever discovered in the distant Universe.',
                 views: 714,
-                createDate: --new Date(),
+                dateCreated: --new Date(),
                 lastUpdated: --new Date(),
                 tags: [tag3])
 

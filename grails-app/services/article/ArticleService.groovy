@@ -16,10 +16,10 @@ class ArticleService {
         Article.list()
     }
 
-    def createOrUpdate(Article newArticle, String tags) {
+    def createOrUpdate(Article article, String tags) {
         def tagList = tagService.processTags(tags)
-        newArticle.tags = tagList
-        springSecurityService.currentUser.articles << newArticle
+        article.tags = tagList
+        springSecurityService.currentUser.articles << article
     }
 
     def delete(Long id) {
