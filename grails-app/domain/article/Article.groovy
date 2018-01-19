@@ -10,6 +10,8 @@ class Article {
     static belongsTo = User
 
     static constraints = {
+        title size: 1..255, blank: false
+        content blank: false
     }
 
     static mapping = {

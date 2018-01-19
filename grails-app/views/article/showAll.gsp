@@ -9,7 +9,7 @@
             <ul><li><g:link class="create" action="edit">New article</g:link></li></ul>
         </div>
         <div class="col-md-8">
-            <g:each in="${articles.sort{it.dateCreated}}">
+            <g:each in="${articles}">
                 <p><h3>${it.title}
                 <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_USER'><g:link action="edit" class="btn btn-success" id="${it.id}">Edit</g:link></sec:ifAnyGranted>
                 <sec:ifAllGranted roles="ROLE_ADMIN"><g:link action="delete" class="btn btn-info" style="float: right" id="${it.id}">Delete</g:link></sec:ifAllGranted></h3>

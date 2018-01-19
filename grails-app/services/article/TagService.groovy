@@ -1,14 +1,15 @@
 package article
 
-import grails.transaction.Transactional
+import org.apache.commons.lang.StringUtils
 
-@Transactional
 class TagService {
     def processTags(String tags) {
         def tagList = []
         tags?.split(' ')?.each {
-            def tag = Tag.findByName(it) ?: new Tag(name: it)
-            tagList.add(tag)
+            if (StringUtils.isNotBlank(it)) {
+                def tag = Tag.findByName(it) ?: new Tag(name: it)
+                tagList.add(tag)
+            }
         }
         tagList
     }

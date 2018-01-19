@@ -9,10 +9,11 @@
         <div class="nav" role="navigation">
                 <g:actionSubmit value="back" action="showAll" class="btn"/>
         </div>
+            <g:renderErrors bean="${article}" />
         <div class="col-xs-6">
-            <div>
+            <div class="value ${hasErrors(bean:article, field:'title','errors')}">
                 <label>Title:</label>
-                <g:textField name="title" class="form-control" value="${article?.title}"/><br/>
+                <g:textField name="title" class="form-control" value="${fieldValue(bean:article, field:'title')}"/><br/>
             </div>
             <div>
                 <label>Tags:</label>
@@ -23,7 +24,7 @@
             </div>
         </div>
         <div class="col-xs-6">
-            <g:actionSubmit value="save" action="createOrUpdate" class="btn btn-success" style="margin: 25px;"/>
+            <g:submitButton name="save" class="btn btn-success" style="margin: 25px;"/>
         </div>
         </g:form>
     </body>

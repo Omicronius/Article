@@ -39,8 +39,8 @@ class BootStrap {
                 tags: [tag3])
 
         def admin = new User(
-                username: 'ad',
-                password: 'ad',
+                username: 'a',
+                password: 'a',
                 firstName: 'ad',
                 lastName: 'ad',
                 email: 'admin@admin',
@@ -51,8 +51,8 @@ class BootStrap {
         ).save()
 
         def user1 = new User(
-                username: 'us',
-                password: 'us',
+                username: 'u',
+                password: 'u',
                 firstName: 'Konstantin',
                 lastName: 'Klimov',
                 email: 'user@user',
