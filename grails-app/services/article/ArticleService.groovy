@@ -8,12 +8,14 @@ class ArticleService {
     def userService
     def tagService
 
+    final int TOP_ARTICLES_AMOUNT = 5
+
     def getById(Long id) {
         Article.get(id)
     }
 
     def getAllArticles() {
-        Article.list([sort: "lastUpdated", order: 'asc'])
+        Article.list([sort: "lastUpdated", order: 'desc'])
     }
 
     def createOrUpdate(Article article, String tags) {
@@ -27,5 +29,9 @@ class ArticleService {
         def users = userService.getUsersByArticle(article)
         users.each { it.articles.remove(article) }
         article.delete()
+    }
+
+    def getTopArticles() {
+        Article.list([sort: "views", order: 'desc']).take(TOP_ARTICLES_AMOUNT)
     }
 }

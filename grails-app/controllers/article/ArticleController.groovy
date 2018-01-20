@@ -34,8 +34,8 @@ class ArticleController {
     def showAll = {
         def user = springSecurityService.currentUser
         def articles = articleService.getAllArticles()
-        Collections.reverse(articles.sort { it.dateCreated })
-        render(view: "showAll", model: [user: user, articles: articles])
+        def topArticles = articleService.getTopArticles()
+        render(view: "showAll", model: [user: user, articles: articles, topArticles: topArticles])
     }
 
     @Secured(["ROLE_ADMIN"])
