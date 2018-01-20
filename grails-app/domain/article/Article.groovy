@@ -15,6 +15,7 @@ class Article {
     }
 
     static mapping = {
+        tags validator: {it.size() != 0}
         users joinTable: [name: "user_article", key: 'article_id' ]
         tags joinTable: [name: "article_tag", key: 'article_id' ]
         content type: 'text'

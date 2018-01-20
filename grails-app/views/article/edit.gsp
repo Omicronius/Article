@@ -12,14 +12,15 @@
             <g:renderErrors bean="${article}" />
         <div class="col-xs-6">
             <div class="value ${hasErrors(bean:article, field:'title','errors')}">
-                <label>Title:</label>
+                Title:
                 <g:textField name="title" class="form-control" value="${fieldValue(bean:article, field:'title')}"/><br/>
             </div>
-            <div>
-                <label>Tags:</label>
+            <div class="value ${hasErrors(bean:article, field:'tags','errors')}">
+                Tags:
                 <g:textField name="tags" class="form-control" value="${tags}"/><br/>
             </div>
-            <div>
+            <div class="value ${hasErrors(bean:article, field:'content','errors')}">
+                Content:
                 <g:textArea name="content" class="form-control" rows="7" cols="70" value="${article?.content}"/>
             </div>
         </div>

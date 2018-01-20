@@ -1,6 +1,8 @@
 package article
 
 import grails.plugins.springsecurity.Secured
+import org.apache.commons.lang.StringUtils
+import org.springframework.validation.FieldError
 
 class ArticleController {
     def articleService
@@ -20,8 +22,11 @@ class ArticleController {
     def createOrUpdate(Long id) {
         def article = id != null ? articleService.getById(id) : new Article()
         bindData(article, params, [exclude: ['tags']])
-        if (!article.validate()) {
-            redirect(action: 'edit')
+        if (!article.validate() || StringUtils.isNotBlank(params.tags as String)) {
+            if (StringUtils.isNotBlank(params.tags as String)) {
+                article.errors << new FieldError('article', 'tags', 'blank tags')
+            }
+            render(view: "edit", model: [article: article])
         } else {
             def tags = params.tags
             articleService.createOrUpdate(article, tags)
