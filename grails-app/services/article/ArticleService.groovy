@@ -13,7 +13,7 @@ class ArticleService {
     }
 
     def getAllArticles() {
-        Article.list()
+        Article.list([sort: "lastUpdated", order: 'asc'])
     }
 
     def createOrUpdate(Article article, String tags) {
