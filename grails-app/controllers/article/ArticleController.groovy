@@ -50,9 +50,11 @@ class ArticleController {
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def tag = {
-        String tagName = params.id
-        def tag = Tag.findByName(tagName)
-        def articles = articleService.getArticlesByTag(tag)
+        def tag = Tag.findByName(params.id as String)
+        def articles = []
+        if (tag != null) {
+            articles = articleService.getArticlesByTag(tag)
+        }
         def topArticles = articleService.getTopArticles()
         def user = springSecurityService.currentUser
         render(view: "showAll", model: [user: user, articles: articles, topArticles: topArticles])

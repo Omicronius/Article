@@ -5,6 +5,6 @@
 <p>Views: ${article.views}</p>
 <p>Last updated: <g:formatDate date="${article.lastUpdated}" type="datetime" style="MEDIUM"/></p>
 <p>Contributors: <g:each var="user" in="${article.users}">${user.firstName} </g:each></p>
-<p>Tags: <g:each var="tag" in="${article.tags}">${tag.name} </g:each></p>
+<p>Tags: <g:each var="tag" in="${article.tags}"><g:link action="tag" id="${tag.name}">${tag.name} </g:link></g:each></p>
 <p>Content: ${article.content}</p>
 <hr>
