@@ -8,6 +8,11 @@
         <div class="nav" role="navigation">
             <ul><li><g:link class="create" action="edit">New article</g:link></li></ul>
         </div>
+        <div>
+            <g:if test="${articles.isEmpty()}">
+                <h3>No articles has been found.</h3>
+            </g:if>
+        </div>
         <div class="col-md-8">
             <g:render template="articles" collection="${articles}" var="article"/>
         </div>

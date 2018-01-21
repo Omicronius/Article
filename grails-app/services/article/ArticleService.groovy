@@ -14,8 +14,16 @@ class ArticleService {
         Article.get(id)
     }
 
+    def getArticlesByTag(Tag tag) {
+        Article.executeQuery('select a from Article a where :tag in elements(a.tags)', [tag: tag])
+    }
+
     def getAllArticles() {
         Article.list([sort: "lastUpdated", order: 'desc'])
+    }
+
+    def getTopArticles() {
+        Article.list([sort: "views", order: 'desc']).take(TOP_ARTICLES_AMOUNT)
     }
 
     def createOrUpdate(Article article, String tags) {
@@ -29,9 +37,5 @@ class ArticleService {
         def users = userService.getUsersByArticle(article)
         users.each { it.articles.remove(article) }
         article.delete()
-    }
-
-    def getTopArticles() {
-        Article.list([sort: "views", order: 'desc']).take(TOP_ARTICLES_AMOUNT)
     }
 }

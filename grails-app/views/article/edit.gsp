@@ -17,11 +17,12 @@
             </div>
             <div class="value ${hasErrors(bean:article, field:'tags','errors')}">
                 Tags:
+                ${flash.message}
                 <g:textField name="tags" class="form-control" value="${tags}"/><br/>
             </div>
             <div class="value ${hasErrors(bean:article, field:'content','errors')}">
                 Content:
-                <g:textArea name="content" class="form-control" rows="7" cols="70" value="${article?.content}"/>
+                <g:textArea name="content" class="form-control" rows="7" cols="70" value="${fieldValue(bean:article, field:'content')}"/>
             </div>
         </div>
         <div class="col-xs-6">
