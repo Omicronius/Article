@@ -8,34 +8,37 @@ class ArticleController {
     def springSecurityService
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def edit(Long id) {
+    def edit = {
         def tags
+        def id = params.id as Long
         def article = articleService.getById(id)
-        if (article != null) {
+        if (article) {
             tags = article?.tags*.name.join(' ')
         }
         render(view: "edit", model: [article: article, tags: tags])
     }
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def createOrUpdate(Long id) {
-        def article = id != null ? articleService.getById(id) : new Article()
+    def createOrUpdate = {
+        def id = params.id as Long
+        def article = articleService.getById(id)
+        if (!article) {
+            article = new Article()
+        }
         bindData(article, params, [exclude: ['tags']])
-        if (!article.validate() || StringUtils.isBlank(params.tags as String)) {
-            if (StringUtils.isBlank(params.tags as String)) {
-                flash.message = "Please enter tags."
-            }
-            render(view: "edit", model: [article: article])
-        } else {
+        if (article.validate() && StringUtils.isNotBlank(params.tags)) {
             def tags = params.tags
             articleService.createOrUpdate(article, tags)
             redirect(action: 'showAll')
         }
-
+        if (StringUtils.isBlank(params.tags as String)) {
+            flash.message = "Please enter tags."
+        }
+        render(view: "edit", model: [article: article])
     }
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
-    def showAll() {
+    def showAll = {
         def user = springSecurityService.currentUser
         def articles = articleService.getAllArticles()
         def topArticles = articleService.getTopArticles()
@@ -43,8 +46,11 @@ class ArticleController {
     }
 
     @Secured(["ROLE_ADMIN"])
-    def delete(Long id) {
-        articleService.delete(id)
+    def delete = {
+        def id = params.id
+        if (id && id.isLong()) {
+            articleService.delete(id as Long)
+        }
         redirect(action: 'showAll')
     }
 
@@ -52,7 +58,7 @@ class ArticleController {
     def tag = {
         def tag = Tag.findByName(params.id as String)
         def articles = []
-        if (tag != null) {
+        if (tag) {
             articles = articleService.getArticlesByTag(tag)
         }
         def topArticles = articleService.getTopArticles()

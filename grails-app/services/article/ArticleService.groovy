@@ -34,8 +34,10 @@ class ArticleService {
 
     def delete(Long id) {
         def article = Article.get(id)
-        def users = userService.getUsersByArticle(article)
-        users.each { it.articles.remove(article) }
-        article.delete()
+        if (article) {
+            def users = userService.getUsersByArticle(article)
+            users.each { it.articles.remove(article) }
+            article.delete()
+        }
     }
 }
