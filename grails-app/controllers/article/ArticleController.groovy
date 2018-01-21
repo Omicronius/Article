@@ -20,8 +20,10 @@ class ArticleController {
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def createOrUpdate = {
-        def id = params.id as Long
-        def article = articleService.getById(id)
+        def article = null
+        if (params.id.isLong()) {
+            article = articleService.getById(params.id as Long)
+        }
         if (!article) {
             article = new Article()
         }
@@ -47,9 +49,8 @@ class ArticleController {
 
     @Secured(["ROLE_ADMIN"])
     def delete = {
-        def id = params.id
-        if (id && id.isLong()) {
-            articleService.delete(id as Long)
+        if (params.id.isLong()) {
+            articleService.delete(params.id as Long)
         }
         redirect(action: 'showAll')
     }
