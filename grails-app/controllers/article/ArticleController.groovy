@@ -9,9 +9,11 @@ class ArticleController {
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def edit = {
+        def article
+        if (params.id.isLong()) {
+            article = articleService.getById(params.id as Long)
+        }
         def tags
-        def id = params.id as Long
-        def article = articleService.getById(id)
         if (article) {
             tags = article?.tags*.name.join(' ')
         }
