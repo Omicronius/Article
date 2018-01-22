@@ -58,4 +58,23 @@ class ArticleServiceTest extends IntegrationSpec {
         article.delete()
         Tag.list().each { it.delete() }
     }
+
+    def 'constraint validation for new article'() {
+        given:
+        def article = new Article(
+                views: 1556,
+                dateCreated: new Date(),
+                lastUpdated: new Date())
+
+        when:
+        article.validate()
+
+        then:
+        article.errors.allErrors.size() == 3
+        article.errors.allErrors.find{it.field == 'title'}
+        article.errors.allErrors.find{it.field == 'content'}
+        article.errors.allErrors.find{it.field == 'tags'}
+        !Article.list()
+        !Tag.list()
+    }
 }

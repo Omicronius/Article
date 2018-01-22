@@ -12,12 +12,12 @@ class Article {
     static constraints = {
         title size: 1..255, blank: false
         content blank: false
+        tags validator: { it && it.size() != 0 }
     }
 
     static mapping = {
-        tags validator: {it.size() != 0}
-        users joinTable: [name: "user_article", key: 'article_id' ]
-        tags joinTable: [name: "article_tag", key: 'article_id' ]
+        users joinTable: [name: "user_article", key: 'article_id']
+        tags joinTable: [name: "article_tag", key: 'article_id']
         content type: 'text'
         views defaultValue: '0'
     }
