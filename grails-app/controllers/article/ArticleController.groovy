@@ -71,10 +71,10 @@ class ArticleController {
     def read = {
         def article
         if (params.id && params.id.isLong()) {
-            article = articleService.getById(params.id as Long).refresh()
+            article = articleService.getById(params.id as Long)
         }
         def user = springSecurityService.currentUser
         def infoChart = articleService.getInfoChart()
-        render(view: "showAll", model: [user: user, articles: [article], infoChart: infoChart])
+        render(view: "read", model: [user: user, article: article, infoChart: infoChart])
     }
 }

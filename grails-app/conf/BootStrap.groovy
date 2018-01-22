@@ -13,6 +13,7 @@ class BootStrap {
         def tag1 = new Tag(name: 'science')
         def tag2 = new Tag(name: 'history')
         def tag3 = new Tag(name: 'astronomy')
+        def tag4 = new Tag(name: 'biology')
 
         def art1 = new Article(
                 title: 'Scientific article',
@@ -33,10 +34,42 @@ class BootStrap {
         def art3 = new Article(
                 title: 'Astronomical article',
                 content: 'In 2014, astronomers found an enormous galaxy cluster contains the mass of a staggering three million billion suns -- so it\'s little wonder that it has earned the nickname of "El Gordo" ("the Fat One" in Spanish)! Known officially as ACT-CLJ0102-4915, it is the largest, hottest, and brightest X-ray galaxy cluster ever discovered in the distant Universe.',
-                views: 714,
+                views: 124,
                 dateCreated: --new Date(),
                 lastUpdated: --new Date(),
                 tags: [tag3])
+
+        def art4 = new Article(
+                title: 'Biological article',
+                content: 'Acoustic tractor beams use the power of sound to hold particles in mid-air, and unlike magnetic levitation, they can grab most solids or liquids even small insects. For the first time engineers have shown it is possible to stably trap objects larger than the wavelength of sound in an acoustic tractor beam. This discovery could enable the manipulation of drug capsules or micro-surgical implements within the body. The discovery could even lead to levitating humans.',
+                views: 1156,
+                dateCreated: --new Date(),
+                lastUpdated: --new Date(),
+                tags: [tag4])
+
+        def art5 = new Article(
+                title: 'Zoology article',
+                content: 'The afterglow from the distant neutron-star merger detected last August has continued to brighten - much to the surprise of astrophysicists studying the aftermath of the massive collision that took place about 138 million light years away and sent gravitational waves rippling through the universe. New observations indicate that the gamma ray burst unleashed by the collision is more complex than scientists initially imagined.',
+                views: 2145,
+                dateCreated: --new Date(),
+                lastUpdated: --new Date(),
+                tags: [tag4])
+
+        def art6 = new Article(
+                title: 'Psychology article',
+                content: 'In a scientific first, researchers have turned skin cells from mice into stem cells by activating a specific gene in the cells using CRISPR technology. The innovative approach offers a potentially simpler technique to produce the valuable cell type and provides important insights into the cellular reprogramming process.',
+                views: 587,
+                dateCreated: --new Date(),
+                lastUpdated: --new Date(),
+                tags: [tag3, tag4])
+
+        def art7 = new Article(
+                title: 'Health article',
+                content: 'It is easier to spread the influenza virus (flu) than previously thought, according to a new study. People commonly believe that they can catch the flu by exposure to droplets from an infected person\'s coughs or sneezes or by touching contaminated surfaces. But, new information about flu transmission reveals that we may pass the flu to others just by breathing.',
+                views: 982,
+                dateCreated: --new Date(),
+                lastUpdated: --new Date(),
+                tags: [tag1, tag3])
 
         def admin = new User(
                 username: 'a',
@@ -60,7 +93,7 @@ class BootStrap {
                 accountExpired: false,
                 accountLocked: false,
                 passwordExpired: false,
-                articles: [art1, art2, art3]
+                articles: [art1, art2, art3, art5, art7]
         ).save()
 
         def user2 = new User(
@@ -73,7 +106,7 @@ class BootStrap {
                 accountExpired: false,
                 accountLocked: false,
                 passwordExpired: false,
-                articles: [art2]
+                articles: [art2, art4, art6, art7]
         ).save()
 
         UserRole.create(admin, adminRole, true)

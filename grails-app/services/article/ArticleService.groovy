@@ -9,7 +9,7 @@ class ArticleService {
 
     final LAST_UPDATED_SORTING = [sort: "lastUpdated", order: 'desc']
     final TOP_VIEWS_SORTING = [sort: "views", order: 'desc']
-    final int TOP_VIEWS_ARTICLES_AMOUNT = 5
+    final int TOP_VIEWS_ARTICLES_AMOUNT = 3
     final int RECENT_ARTICLES_AMOUNT = 3
 
     def getById(Long id) {
