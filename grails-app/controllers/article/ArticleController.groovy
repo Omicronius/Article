@@ -77,4 +77,12 @@ class ArticleController {
         def infoChart = articleService.getInfoChart()
         render(view: "read", model: [user: user, article: article, infoChart: infoChart])
     }
+
+    @Secured(["ROLE_USER", "ROLE_ADMIN"])
+    def search = {
+        def articles = articleService.findBySearchWord(params.search as String)
+        def user = springSecurityService.currentUser
+        def infoChart = articleService.getInfoChart()
+        render(view: "showAll", model: [user: user, articles: articles, infoChart: infoChart])
+    }
 }

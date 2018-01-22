@@ -5,10 +5,7 @@
         <meta name="layout" content="main"/>
     </head>
     <body>
-        <div class="nav" role="navigation">
-            <li><g:link class="home" action="showAll">Home</g:link></li>
-            <li><g:link class="create" action="edit">New article</g:link></li>
-        </div>
+        <g:render template="nav"/>
         <div class="col-md-8">
             <g:if test="${!article}">
                 <h3>No articles has been found.</h3>

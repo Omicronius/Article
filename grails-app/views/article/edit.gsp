@@ -5,11 +5,8 @@
         <meta name="layout" content="main"/>
     </head>
     <body>
+        <g:render template="nav"/>
         <g:form controller="article" action="createOrUpdate" id="${article?.id}">
-        <div class="nav" role="navigation">
-            <li><g:link class="home" action="showAll">Home</g:link></li>
-            <li><g:link class="create" action="edit">New article</g:link></li>
-        </div>
             <g:renderErrors bean="${article}" />
         <div class="col-xs-6">
             <div class="value ${hasErrors(bean:article, field:'title','errors')}">

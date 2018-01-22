@@ -40,6 +40,13 @@ class ArticleService {
         [top: topArticles, recent: recentArticles]
     }
 
+    def findBySearchWord(String searchWord) {
+        def criteria = Article.createCriteria()
+        criteria {
+            like("title", "%${searchWord}%")
+        }
+    }
+
     def delete(Long id) {
         def article = Article.get(id)
         if (article) {
