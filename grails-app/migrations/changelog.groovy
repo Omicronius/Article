@@ -1,6 +1,6 @@
 databaseChangeLog = {
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-1") {
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-article-table") {
 		createTable(tableName: "article") {
 			column(autoIncrement: "true", name: "id", type: "BIGINT") {
 				constraints(nullable: "false", primaryKey: "true")
@@ -32,51 +32,7 @@ databaseChangeLog = {
 		}
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-2") {
-		createTable(tableName: "article_tag") {
-			column(name: "article_id", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "tag_id", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-4") {
-		createTable(tableName: "role") {
-			column(autoIncrement: "true", name: "id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true")
-			}
-
-			column(name: "version", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "authority", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-5") {
-		createTable(tableName: "tag") {
-			column(autoIncrement: "true", name: "id", type: "BIGINT") {
-				constraints(nullable: "false", primaryKey: "true")
-			}
-
-			column(name: "version", type: "BIGINT") {
-				constraints(nullable: "false")
-			}
-
-			column(name: "name", type: "VARCHAR(255)") {
-				constraints(nullable: "false")
-			}
-		}
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-6") {
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-user-table") {
 		createTable(tableName: "user") {
 			column(autoIncrement: "true", name: "id", type: "BIGINT") {
 				constraints(nullable: "false", primaryKey: "true")
@@ -122,9 +78,63 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 		}
+		createIndex(indexName: "UK_user_username", tableName: "user", unique: "true") {
+			column(name: "username")
+		}
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-7") {
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-role-table") {
+		createTable(tableName: "role") {
+			column(autoIncrement: "true", name: "id", type: "BIGINT") {
+				constraints(nullable: "false", primaryKey: "true")
+			}
+
+			column(name: "version", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "authority", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+		}
+		createIndex(indexName: "UK_role_authority", tableName: "role", unique: "true") {
+			column(name: "authority")
+		}
+	}
+
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-tag-table") {
+		createTable(tableName: "tag") {
+			column(autoIncrement: "true", name: "id", type: "BIGINT") {
+				constraints(nullable: "false", primaryKey: "true")
+			}
+
+			column(name: "version", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "name", type: "VARCHAR(255)") {
+				constraints(nullable: "false")
+			}
+		}
+		createIndex(indexName: "UK_tag_name", tableName: "tag", unique: "true") {
+			column(name: "name")
+		}
+	}
+
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-article_tag-table") {
+		createTable(tableName: "article_tag") {
+			column(name: "article_id", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
+
+			column(name: "tag_id", type: "BIGINT") {
+				constraints(nullable: "false")
+			}
+		}
+		addPrimaryKey(columnNames: "article_id, tag_id", tableName: "article_tag")
+	}
+
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-user_article-table") {
 		createTable(tableName: "user_article") {
 			column(name: "user_id", type: "BIGINT") {
 				constraints(nullable: "false")
@@ -134,9 +144,10 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 		}
+		addPrimaryKey(columnNames: "user_id, article_id", tableName: "user_article")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-9") {
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-create-user_role-table") {
 		createTable(tableName: "user_role") {
 			column(name: "role_id", type: "BIGINT") {
 				constraints(nullable: "false")
@@ -146,59 +157,30 @@ databaseChangeLog = {
 				constraints(nullable: "false")
 			}
 		}
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-10") {
-		addPrimaryKey(columnNames: "article_id, tag_id", tableName: "article_tag")
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-12") {
-		addPrimaryKey(columnNames: "user_id, article_id", tableName: "user_article")
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-14") {
 		addPrimaryKey(columnNames: "role_id, user_id", tableName: "user_role")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-25") {
-		createIndex(indexName: "UK_irsamgnera6angm0prq1kemt2", tableName: "role", unique: "true") {
-			column(name: "authority")
-		}
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-article_tag-article_id") {
+		addForeignKeyConstraint(baseColumnNames: "article_id", baseTableName: "article_tag", constraintName: "FK_article_tag-article_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "article", referencesUniqueColumn: "false")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-26") {
-		createIndex(indexName: "UK_1wdpsed5kna2y38hnbgrnhi5b", tableName: "tag", unique: "true") {
-			column(name: "name")
-		}
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-article_tag-tag_id") {
+		addForeignKeyConstraint(baseColumnNames: "tag_id", baseTableName: "article_tag", constraintName: "FK_article_tag-tag_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "tag", referencesUniqueColumn: "false")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-27") {
-		createIndex(indexName: "UK_sb8bbouer5wak8vyiiy4pf2bx", tableName: "user", unique: "true") {
-			column(name: "username")
-		}
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-user_article-article_id") {
+		addForeignKeyConstraint(baseColumnNames: "article_id", baseTableName: "user_article", constraintName: "FK_user_article-article_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "article", referencesUniqueColumn: "false")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-15") {
-		addForeignKeyConstraint(baseColumnNames: "article_id", baseTableName: "article_tag", baseTableSchemaName: "article", constraintName: "FK_5ao70rbptu4cd93wbu7o38y1y", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "article", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-user_article-user_id") {
+		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "user_article", constraintName: "FK_user_article-user_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-16") {
-		addForeignKeyConstraint(baseColumnNames: "tag_id", baseTableName: "article_tag", baseTableSchemaName: "article", constraintName: "FK_pkndl0ud6fkak73gdkls858a5", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "tag", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-user_role-role_id") {
+		addForeignKeyConstraint(baseColumnNames: "role_id", baseTableName: "user_role", constraintName: "FK_user_role-role_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "role", referencesUniqueColumn: "false")
 	}
 
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-19") {
-		addForeignKeyConstraint(baseColumnNames: "article_id", baseTableName: "user_article", baseTableSchemaName: "article", constraintName: "FK_p8vqknqpvfnn4fwfwcj1pc9g4", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "article", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-20") {
-		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "user_article", baseTableSchemaName: "article", constraintName: "FK_dkcx27l2n3v7o0rki1vjlgad9", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "user", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-23") {
-		addForeignKeyConstraint(baseColumnNames: "role_id", baseTableName: "user_role", baseTableSchemaName: "article", constraintName: "FK_it77eq964jhfqtu54081ebtio", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "role", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
-	}
-
-	changeSet(author: "KonstantinKlimov (generated)", id: "1516350500093-24") {
-		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "user_role", baseTableSchemaName: "article", constraintName: "FK_apcc8lxk2xnug8377fatvbn04", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "user", referencedTableSchemaName: "article", referencesUniqueColumn: "false")
+	changeSet(author: "KonstantinKlimov", id: "2018-01-22-add-fk-user_role-user_id") {
+		addForeignKeyConstraint(baseColumnNames: "user_id", baseTableName: "user_role", constraintName: "FK_user_role-user_id", deferrable: "false", initiallyDeferred: "false", onDelete: "NO ACTION", onUpdate: "NO ACTION", referencedColumnNames: "id", referencedTableName: "user", referencesUniqueColumn: "false")
 	}
 }
