@@ -120,3 +120,13 @@ log4j.main = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'article.User'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'article.UserRole'
 grails.plugins.springsecurity.authority.className = 'article.Role'
+
+grails {
+    plugin {
+        databasemigration {
+            updateOnStart = true
+            updateOnStartFileNames = ['changelog.groovy']
+            autoMigrateScripts = ['RunApp', 'TestApp']
+        }
+    }
+}

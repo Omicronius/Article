@@ -10,7 +10,7 @@ class ArticleController {
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def edit = {
         def article
-        if (params.id.isLong()) {
+        if (params.id && params.id.isLong()) {
             article = articleService.getById(params.id as Long)
         }
         def tags
@@ -23,7 +23,7 @@ class ArticleController {
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def createOrUpdate = {
         def article = null
-        if (params.id.isLong()) {
+        if (params.id && params.id.isLong()) {
             article = articleService.getById(params.id as Long)
         }
         if (!article) {
@@ -51,7 +51,7 @@ class ArticleController {
 
     @Secured(["ROLE_ADMIN"])
     def delete = {
-        if (params.id.isLong()) {
+        if (params.id && params.id.isLong()) {
             articleService.delete(params.id as Long)
         }
         redirect(action: 'showAll')

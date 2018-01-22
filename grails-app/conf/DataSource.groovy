@@ -26,7 +26,7 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "create-drop"
+            dbCreate = "none"
             url = "jdbc:mysql://localhost/article_test"
         }
     }
@@ -54,15 +54,6 @@ environments {
                jdbcInterceptors = "ConnectionState"
                defaultTransactionIsolation = java.sql.Connection.TRANSACTION_READ_COMMITTED
             }
-        }
-    }
-}
-
-grails {
-    plugin {
-        databasemigration {
-            updateOnStart = true
-            updateOnStartFileNames = ['changelog.groovy']
         }
     }
 }
