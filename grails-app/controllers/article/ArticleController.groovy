@@ -1,7 +1,7 @@
 package article
 
 import grails.plugins.springsecurity.Secured
-import org.apache.commons.lang.StringUtils
+import grails.validation.ValidationException
 
 class ArticleController {
     def articleService
@@ -29,24 +29,22 @@ class ArticleController {
         if (!article) {
             article = new Article()
         }
+
         bindData(article, params, [exclude: ['tags']])
-        if (article.validate() && StringUtils.isNotBlank(params.tags)) {
-            def tags = params.tags
-            articleService.createOrUpdate(article, tags)
+        try {
+            articleService.createOrUpdate(article, params.tags as String)
             redirect(action: 'showAll')
+        } catch (ValidationException e) {
+            render(view: "edit", model: [article: article])
         }
-        if (StringUtils.isBlank(params.tags as String)) {
-            flash.message = "Please enter tags."
-        }
-        render(view: "edit", model: [article: article])
     }
 
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def showAll = {
         def user = springSecurityService.currentUser
         def articles = articleService.getAllArticles()
-        def topArticles = articleService.getTopArticles()
-        render(view: "showAll", model: [user: user, articles: articles, topArticles: topArticles])
+        def infoChart = articleService.getInfoChart()
+        render(view: "showAll", model: [user: user, articles: articles, infoChart: infoChart])
     }
 
     @Secured(["ROLE_ADMIN"])
@@ -64,8 +62,19 @@ class ArticleController {
         if (tag) {
             articles = articleService.getArticlesByTag(tag)
         }
-        def topArticles = articleService.getTopArticles()
         def user = springSecurityService.currentUser
-        render(view: "showAll", model: [user: user, articles: articles, topArticles: topArticles])
+        def infoChart = articleService.getInfoChart()
+        render(view: "showAll", model: [user: user, articles: articles, infoChart: infoChart])
+    }
+
+    @Secured(["ROLE_USER", "ROLE_ADMIN"])
+    def read = {
+        def article
+        if (params.id && params.id.isLong()) {
+            article = articleService.getById(params.id as Long).refresh()
+        }
+        def user = springSecurityService.currentUser
+        def infoChart = articleService.getInfoChart()
+        render(view: "showAll", model: [user: user, articles: [article], infoChart: infoChart])
     }
 }

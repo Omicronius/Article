@@ -1,5 +1,5 @@
 
-<p><h3>${article.title}
+<p><h3><g:link action="read" id="${article.id}">${article.title}</g:link>
 <sec:ifAnyGranted roles='ROLE_ADMIN,ROLE_USER'><g:link action="edit" class="btn btn-success" id="${article.id}">Edit</g:link></sec:ifAnyGranted>
 <sec:ifAllGranted roles="ROLE_ADMIN"><g:link action="delete" class="btn btn-info" style="float: right" id="${article.id}">Delete</g:link></sec:ifAllGranted></h3></p>
 <p>Views: ${article.views}</p>
