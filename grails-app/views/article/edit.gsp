@@ -7,7 +7,8 @@
     <body>
         <g:form controller="article" action="createOrUpdate" id="${article?.id}">
         <div class="nav" role="navigation">
-                <g:actionSubmit value="back" action="showAll" class="btn"/>
+            <li><g:link class="home" action="showAll">Home</g:link></li>
+            <li><g:link class="create" action="edit">New article</g:link></li>
         </div>
             <g:renderErrors bean="${article}" />
         <div class="col-xs-6">

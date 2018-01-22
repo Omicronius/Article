@@ -6,7 +6,19 @@
     </head>
     <body>
         <div class="nav" role="navigation">
-            <ul><li><g:link class="create" action="edit">New article</g:link></li></ul>
+            <ul>
+                <li><g:link class="home" action="showAll">Home</g:link></li>
+                <li><g:link class="create" action="edit">New article</g:link></li>
+                <li>
+                    <g:form action="search">
+                        <g:textField id="mytext" class="input-xxlarge" name="q" placeholder="Search" value="${q}"/>
+                        <button id="submit-values" class="btn btn-small btn-primary" type="submit">
+                            <i class="icon-ok"></i>
+                            Search
+                        </button>
+                    </g:form>
+                </li>
+            </ul>
         </div>
         <div class="col-md-8">
             <g:if test="${articles.isEmpty()}">

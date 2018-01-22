@@ -6,7 +6,8 @@
     </head>
     <body>
         <div class="nav" role="navigation">
-            <ul><li><g:link class="create" action="edit">New article</g:link></li></ul>
+            <li><g:link class="home" action="showAll">Home</g:link></li>
+            <li><g:link class="create" action="edit">New article</g:link></li>
         </div>
         <div class="col-md-8">
             <g:if test="${!article}">
