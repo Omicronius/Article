@@ -1,5 +1,6 @@
 package article
 
+import grails.gorm.DetachedCriteria
 import grails.validation.ValidationException
 
 class ArticleService {
@@ -7,8 +8,6 @@ class ArticleService {
     def userService
     def tagService
 
-    final LAST_UPDATED_SORTING = [sort: "lastUpdated", order: 'desc']
-    final TOP_VIEWS_SORTING = [sort: "views", order: 'desc']
     final int TOP_VIEWS_ARTICLES_AMOUNT = 3
     final int RECENT_ARTICLES_AMOUNT = 3
 
@@ -20,8 +19,17 @@ class ArticleService {
         Article.executeQuery('select a from Article a where :tag in elements(a.tags)', [tag: tag])
     }
 
-    def getAllArticles() {
-        Article.list(LAST_UPDATED_SORTING)
+    def getPagedArticles(offset, max) {
+        def articles = Article.list(sort: "lastUpdated", order: "desc", max: max, offset: offset)
+        [articles: articles, count: Article.count()]
+    }
+
+    def findBySearchWord(String searchWord, Integer offset, Integer max) {
+        def criteria = new DetachedCriteria(Article).build {
+            like("title", "%${searchWord}%")
+        }
+        def articles = criteria.list(sort: "lastUpdated", order: "desc", max: max, offset: offset)
+        [articles: articles, count: criteria.count()]
     }
 
     def createOrUpdate(Article article, String tags) {
@@ -35,16 +43,9 @@ class ArticleService {
     }
 
     def getInfoChart() {
-        def topArticles = Article.list(TOP_VIEWS_SORTING).take(TOP_VIEWS_ARTICLES_AMOUNT)
-        def recentArticles = getAllArticles().take(RECENT_ARTICLES_AMOUNT)
+        def topArticles = Article.list(sort: "views", order: 'desc', max: TOP_VIEWS_ARTICLES_AMOUNT)
+        def recentArticles = Article.list(sort: "lastUpdated", order: 'desc', max: RECENT_ARTICLES_AMOUNT)
         [top: topArticles, recent: recentArticles]
-    }
-
-    def findBySearchWord(String searchWord) {
-        def criteria = Article.createCriteria()
-        criteria {
-            like("title", "%${searchWord}%")
-        }
     }
 
     def delete(Long id) {
