@@ -5,8 +5,6 @@
         <meta name="layout" content="main"/>
     </head>
     <body>
-    <div id="msgid">
-    </div>
     <g:render template="nav"/>
     <div class="col-md-8 col-md-offset-1">
         <g:if test="${params.search}">
