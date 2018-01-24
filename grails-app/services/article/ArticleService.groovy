@@ -24,7 +24,7 @@ class ArticleService {
         [articles: articles, count: Article.count()]
     }
 
-    def findBySearchWord(String searchWord, Integer offset, Integer max) {
+    def findBySearchWord(String searchWord, Integer max, Integer offset) {
         def criteria = new DetachedCriteria(Article).build {
             like("title", "%${searchWord}%")
         }

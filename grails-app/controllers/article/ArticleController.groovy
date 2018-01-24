@@ -68,7 +68,6 @@ class ArticleController {
                 infoChart: infoChart])
     }
 
-
     @Secured(["ROLE_USER", "ROLE_ADMIN"])
     def tag = {
         def tag = Tag.findByName(params.id)

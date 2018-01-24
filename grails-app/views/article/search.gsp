@@ -13,7 +13,7 @@
         </div>
         <div class="col-md-8">
             <g:render template="articles" collection="${articles}" var="article"/>
-            <g:paginate total="${total}" action="search" max="${params.max}" id="${params.search}" offset="${params.offset}"/>
+            <g:paginate total="${total}" action="showAll" max="${params.max}" offset="${params.offset}" params="${params}"/>
         </div>
         <div class="col-md-3" style="margin: 10px">
             <g:render template="profile" bean="${user}"/>
