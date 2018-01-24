@@ -36,7 +36,7 @@ class ArticleController {
         bindData(article, params, [exclude: ['tags']])
         try {
             articleService.createOrUpdate(article, params.tags)
-            redirect(action: 'showAll')
+            redirect(action: 'read', id: article.id)
         } catch (ValidationException e) {
             render(view: "edit", model: [article: article, tags: params.tags])
         }
@@ -48,7 +48,7 @@ class ArticleController {
         def searchResult = articleService.getPagedArticles(params.offset, params.max)
         def user = springSecurityService.currentUser
         def infoChart = articleService.getInfoChart()
-        render(view: "search", model: [
+        render(view: "showAll", model: [
                 user     : user,
                 articles : searchResult.articles,
                 total    : searchResult.count,
@@ -94,13 +94,20 @@ class ArticleController {
     @Secured(["ROLE_ADMIN"])
     def delete = {
         if (params.id && params.id.isLong()) {
-            articleService.delete(params.id)
+            articleService.delete(params.id as Long)
         }
         redirect(action: 'showAll')
     }
 
     def index = {
-        redirect(action: "showAll")
+        redirect(action: "home")
+    }
+
+    @Secured(["ROLE_USER", "ROLE_ADMIN"])
+    def home = {
+        def infoChart = articleService.getInfoChart()
+        def user = springSecurityService.currentUser
+        render(view: "home", model: [user: user, infoChart: infoChart])
     }
 
     private processPaginationParams() {

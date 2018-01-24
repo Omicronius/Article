@@ -1,6 +1,7 @@
 <sec:ifLoggedIn>
-    Hello, ${user.firstName}!
-    <g:link controller="user" action="logout" style="float: right">
-        <button type="button" class="btn btn-default btn-sm">Logout</button>
-    </g:link>
+    <div class="well" >
+        <div style="text-align: center">
+            Hello, ${user.firstName}!
+        </div>
+    </div>
 </sec:ifLoggedIn>

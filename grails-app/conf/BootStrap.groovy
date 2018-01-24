@@ -74,7 +74,7 @@ class BootStrap {
         def admin = new User(
                 username: 'a',
                 password: 'a',
-                firstName: 'ad',
+                firstName: 'admin',
                 lastName: 'ad',
                 email: 'admin@admin',
                 enabled: true,

@@ -13,4 +13,10 @@ class TagService {
         }
         tagList
     }
+
+    def findTagsBySearchWord(String searchWord) {
+        Tag.createCriteria().list {
+            like("name", "%${searchWord}%")
+        }
+    }
 }

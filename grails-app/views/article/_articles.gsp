@@ -4,7 +4,7 @@
         <g:link action="edit" class="btn btn-small btn-default" id="${article.id}">Edit</g:link>
     </sec:ifAnyGranted>
     <sec:ifAllGranted roles="ROLE_ADMIN">
-        <g:link action="delete" class="btn btn-small btn-default" style="float: right" id="${article.id}">Delete</g:link>
+        <g:link action="delete" class="btn btn-small btn-default" id="${article.id}">Delete</g:link>
     </sec:ifAllGranted></h3></p>
 <p>Views: ${article.views}</p>
 <p>Last updated: <g:formatDate date="${article.lastUpdated}" type="datetime" style="MEDIUM"/></p>

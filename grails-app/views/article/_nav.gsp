@@ -1,6 +1,6 @@
 <div class="nav" role="navigation">
     <ul>
-        <li><g:link class="home" action="showAll">Home</g:link></li>
+        <li><g:link class="home" action="home">Home</g:link></li>
         <li><g:link class="create" action="edit">New article</g:link></li>
         <li>
             <g:form action="search">

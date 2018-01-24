@@ -594,3 +594,13 @@ a.skip {
 	position: absolute;
 	left: -9999px;
 }
+
+.fix-wid {
+	width: 150px;
+	margin: 10px;
+}
+
+.highlight {
+	font-weight: bold;
+	font-style: italic;
+}
